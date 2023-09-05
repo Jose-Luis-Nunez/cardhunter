@@ -8,5 +8,3 @@ example frontend automation project with Playwright in JS
 2 `npx playwright install `
 ### Run cardhunter
 `npx playwright test cardhunter.spec.js`
-
-`
