@@ -28,5 +28,19 @@ class Utils {
             }
         }
     }
+
+    async getShopsWithMostCards(array1, array2) {
+        const frequencyMap = new Map();
+
+        // Populate the frequency map for array1 and array2 simultaneously
+        for (const element of [...array1, ...array2]) {
+            frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
+        }
+
+        // Find common elements
+        const commonElements = Array.from(frequencyMap.keys()).filter((element) => frequencyMap.get(element) === 2);
+
+        return commonElements;
+    }
 }
 export default Utils;
