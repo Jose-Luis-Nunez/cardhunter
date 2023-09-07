@@ -1,30 +1,26 @@
-import { expect, test } from '@playwright/test';
-
-async function clickLoadMoreButton(loadMoreButton, maxClicks, page) {
-    for (let i = 0; i < maxClicks; i++) {
-        const isVisible = await loadMoreButton.isVisible();
-        if (isVisible) {
-            await loadMoreButton.click();
-            await page.waitForTimeout(2000);
-        }
-    }
-}
+import { test } from '@playwright/test';
+import Utils from "./utils/Utils";
 
 test('get namens from shop', async ({ page }) => {
-    const urlPage = "https://www.cardmarket.com/de/YuGiOh/Products/Singles/2022-Tin-of-the-Pharaohs-Gods/Anchamoufrite?sellerCountry=7";
-    await page.goto(urlPage, { waitUntil: 'networkidle' });
+    const utils = new Utils();
+    const loadMoreButton = await page.locator(utils.loadMoreButton);
 
-    const maxClicks = 2;
-    const loadMoreButton = await page.locator("#loadMore");
+    //get Data first Page
+    await page.goto(utils.urlPage1, { waitUntil: 'networkidle' });
+    await utils.clickLoadMoreButton(loadMoreButton, 2, page);
 
-    await clickLoadMoreButton(loadMoreButton, maxClicks, page);
-
-    const sellerNames = await page.evaluate(async () => {
-        const elements = await document.querySelectorAll(".seller-name");
-        const sellerNames = Array.from(elements).map(element => element.innerText);
-        return sellerNames;
-    });
-
+    const sellerInformation = await utils.getElements(page,utils.sellerNames);
+    const sellerNames = await utils.getSellerNames(sellerInformation)
     console.log("Size of sellerNames:", sellerNames.length);
     console.log(sellerNames);
+
+    //get Data second Page
+    await page.goto(utils.urlPage2, { waitUntil: 'networkidle' });
+    await utils.clickLoadMoreButton(loadMoreButton, 2, page);
+
+    const sellerInformation2 = await utils.getElements(page,utils.sellerNames);
+    const sellerNames2 = await utils.getSellerNames(sellerInformation2)
+
+    console.log("Size of sellerNames:", sellerNames2.length);
+    console.log(sellerNames2);
 });
