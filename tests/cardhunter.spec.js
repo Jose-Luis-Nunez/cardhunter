@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import Utils from "./utils/Utils";
 
-test('get namens from shop', async ({ page }) => {
+test('get sellerNames', async ({ page }) => {
     const utils = new Utils();
     const loadMoreButton = await page.locator(utils.loadMoreButton);
 
