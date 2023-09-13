@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "playwright": "^1.37.1"
+    "playwright": "^1.37.1",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "@playwright/test": "^1.37.1"

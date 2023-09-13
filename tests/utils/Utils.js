@@ -1,13 +1,27 @@
+import fs from "fs";
+
 class Utils {
-    constructor() {
+    constructor(page) {
+        this.page = page;
         this.loadMoreButton = "#loadMore";
         this.sellerNames = ".seller-name";
-        this.urlPage1 = "https://www.cardmarket.com/de/YuGiOh/Products/Singles/2022-Tin-of-the-Pharaohs-Gods/Anchamoufrite?sellerCountry=7";
-        this.urlPage2 = "https://www.cardmarket.com/de/YuGiOh/Products/Singles/OTS-Tournament-Pack-16/Royal-Magical-Library?sellerCountry=7";
+        this.sellerPrices = ".price-container";
+        this.cardTitle = ".breadcrumb-item:last-child"
     }
 
-    async getElements(page, selector) {
-        return await page.evaluate((selector) => {
+    async getShopNamesFromLink() {
+        const sellerInformation = await this.getElements(this.sellerNames)
+        const sellerPriceInformation = await this.getElements(this.sellerPrices)
+
+        const cardName = await this.page.locator(this.cardTitle).textContent();
+        const sellerNames = await this.getSellerNames(sellerInformation);
+        const sellerPriceFormatted = await this.removeEuroSign(sellerPriceInformation)
+
+        return this.formatCardData(cardName, sellerNames, sellerPriceFormatted);
+    }
+
+    async getElements(selector) {
+        return await this.page.evaluate((selector) => {
             return Array.from(document.querySelectorAll(selector))
                 .map(element => element.innerText);
         }, selector);
@@ -19,28 +33,70 @@ class Utils {
         });
     }
 
-    async clickLoadMoreButton(loadMoreButton, maxClicks, page) {
+    async removeEuroSign(prices) {
+        return prices.map((price) => price.replace("€", "").trim());
+    }
+
+    async formatCardData(cardName, sellerNames, sellerPriceFormatted) {
+        const formattedData = {
+            cardName: cardName,
+            shops: sellerNames.map((seller, index) => ({
+                sellerName: seller,
+                price: parseFloat(sellerPriceFormatted[index].replace(',', '.'))
+            }))
+        };
+        return formattedData;
+    }
+
+    async findShopMostCards(cards) {
+        const shopMap = new Map();
+
+        cards.forEach(card => {
+            card.shops.forEach(shop => {
+                const shopName = shop.sellerName;
+                const price = shop.price;
+
+                if (!shopMap.has(shopName)) {
+                    shopMap.set(shopName, {totalPrice: 0, cards: []});
+                }
+
+                shopMap.get(shopName).totalPrice += price;
+                shopMap.get(shopName).cards.push({cardName: card.cardName, price: price});
+            });
+        });
+
+        // Sort shops by the number of cards they have in descending order
+        const sortedShops = [...shopMap.entries()].sort((a, b) => b[1].cards.length - a[1].cards.length);
+
+        // Create the shop summaries
+        const shopSummaries = sortedShops.map(([shopName, shopData]) => {
+            // Create a new array of cards, sorted by price
+            const sortedCards = shopData.cards.map(item => ({cardName: item.cardName, price: Number(item.price)}));
+
+            // Create a string of the formatted items
+            const formattedItems = sortedCards.map(item => `[${item.cardName} | ${item.price.toFixed(2)}]`).join('; ');
+
+            return `${shopName} → ${shopData.totalPrice.toFixed(2)}€ ${formattedItems}`;
+        });
+
+        return shopSummaries;
+    }
+
+    async clickLoadMoreButton(maxClicks) {
         for (let i = 0; i < maxClicks; i++) {
-            const isVisible = await loadMoreButton.isVisible();
+            const isVisible = await this.loadMoreButton.isVisible();
             if (isVisible) {
-                await loadMoreButton.click();
-                await page.waitForTimeout(2000);
+                await this.loadMoreButton.click();
+                await this.page.waitForTimeout(2000);
             }
         }
     }
 
-    async getShopsWithMostCards(array1, array2) {
-        const frequencyMap = new Map();
-
-        // Populate the frequency map for array1 and array2 simultaneously
-        for (const element of [...array1, ...array2]) {
-            frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
-        }
-
-        // Find common elements
-        const commonElements = Array.from(frequencyMap.keys()).filter((element) => frequencyMap.get(element) === 2);
-
-        return commonElements;
+    async getLinksFromFile(fileName) {
+        const fs = require("fs");
+        const links = fs.readFileSync(fileName, "utf8").split("\n");
+        return links;
     }
 }
+
 export default Utils;

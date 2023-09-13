@@ -1,23 +1,23 @@
-import { test } from '@playwright/test';
+import {test} from '@playwright/test';
 import Utils from "./utils/Utils";
+import fs from 'fs';
 
-test('get sellerNames', async ({ page }) => {
-    const utils = new Utils();
-    const loadMoreButton = await page.locator(utils.loadMoreButton);
+test('get sellerNames', async ({page}) => {
+    const utils = new Utils(page);
 
-    //get Data first Page
-    await page.goto(utils.urlPage1, { waitUntil: 'networkidle' });
-    await utils.clickLoadMoreButton(loadMoreButton, 2, page);
-    const sellerInformation = await utils.getElements(page,utils.sellerNames);
-    const sellerNames = await utils.getSellerNames(sellerInformation)
+    const links = await utils.getLinksFromFile("./tests/utils/links.txt")
+    const formattedJsonArray = [];
 
-    //get Data second Page
-    await page.goto(utils.urlPage2, { waitUntil: 'networkidle' });
-    await utils.clickLoadMoreButton(loadMoreButton, 2, page);
-    const sellerInformation2 = await utils.getElements(page,utils.sellerNames);
-    const sellerNames2 = await utils.getSellerNames(sellerInformation2)
+    for (const link of links) {
+        await page.goto(link);
+        const shopData = await utils.getShopNamesFromLink();
+        formattedJsonArray.push(shopData);
+    }
 
-    const commonElements = await utils.getShopsWithMostCards(sellerNames, sellerNames2);
-    console.log("shops with same cards: ", commonElements.length);
-    console.log("shops: ", commonElements);
+    const a = await utils.findShopMostCards(formattedJsonArray);
+
+    const output = JSON.stringify(a, null, 2);
+    console.log(output);
 });
+
+
