@@ -1,6 +1,5 @@
 import {test} from '@playwright/test';
 import Utils from "./utils/Utils";
-import fs from 'fs';
 
 test('get sellerNames', async ({page}) => {
     const utils = new Utils(page);
@@ -10,7 +9,7 @@ test('get sellerNames', async ({page}) => {
 
     for (const link of links) {
         await page.goto(link);
-        const shopData = await utils.getShopNamesFromLink();
+        const shopData = await utils.getCardData();
         formattedJsonArray.push(shopData);
     }
 

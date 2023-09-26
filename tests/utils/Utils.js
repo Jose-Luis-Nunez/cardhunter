@@ -1,5 +1,3 @@
-import fs from "fs";
-
 class Utils {
     constructor(page) {
         this.page = page;
@@ -9,7 +7,7 @@ class Utils {
         this.cardTitle = ".breadcrumb-item:last-child"
     }
 
-    async getShopNamesFromLink() {
+    async getCardData() {
         const sellerInformation = await this.getElements(this.sellerNames)
         const sellerPriceInformation = await this.getElements(this.sellerPrices)
 
@@ -99,4 +97,4 @@ class Utils {
     }
 }
 
-export default Utils;
+module.exports = Utils;
