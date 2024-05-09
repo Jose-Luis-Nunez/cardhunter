@@ -1,5 +1,5 @@
 // @ts-check
-const { chromium, devices } = require('@playwright/test');
+const { devices } = require('@playwright/test');
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -20,10 +20,12 @@ const config = {
 
     use: {
         actionTimeout: 10000,
-        headless: true,
+        headless: false,
         trace: 'on-first-retry',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
+        ignoreHTTPSErrors: true,
+        viewport: {width: 1366, height: 800},
     },
 
     projects: [
@@ -32,20 +34,9 @@ const config = {
             use: {
                 ...devices['Desktop Chrome'],
                 browserName: 'chromium',
-                ignoreHTTPSErrors: true,
-                headless: true,
-                viewport: { width: 1366, height: 800 },
-
                 args: ["--enable-features=ShadowDOMV0"],
-
-                // Launch a new browser for each test.
-                browser: async ({ browserName }, use) => {
-                    const browser = await chromium.launch();
-                    await use(browser);
-                    await browser.close();
-                },
             },
-        },
+        }
     ],
 };
 
