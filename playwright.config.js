@@ -25,6 +25,9 @@ const config = {
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
         ignoreHTTPSErrors: true,
+        proxy: {
+            server: 'socks5://10.64.0.1:1080'
+        },
         viewport: {width: 1366, height: 800},
     },
 
