@@ -1,0 +1,92 @@
+[
+  {
+    "name": "PHPSESSID",
+    "value": "9qi3j1cn16iqbakvnot81h0s4i",
+    "domain": "www.cardmarket.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__cf_bm",
+    "value": "7x3JWU8SceLByfd7TjGR7i_7dkLXwmnPXxS2NZBb2eY-1715414608-1.0.1.1-_NyniqAyGgiR2WZPdTqF.NFgaPVeXTPFNbJNZBGspFi5UTXpP3hlHu92Rjuw_7RkJMLExMdQfywupeJy.1WeJw",
+    "domain": ".cardmarket.com",
+    "path": "/",
+    "expires": 1715416408.602459,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "_cfuvid",
+    "value": "9eO_ri_Ts_EJVg36ggg4T6DBgE.XYS1.mnt6u0HmuVc-1715414608565-0.0.1.1-604800000",
+    "domain": ".cardmarket.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": true,
+    "sameSite": "None"
+  },
+  {
+    "name": "_ga",
+    "value": "GA1.1.994362174.1715414609",
+    "domain": ".cardmarket.com",
+    "path": "/",
+    "expires": 1749974609.327427,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_ga_G8GDQ4EM48",
+    "value": "GS1.1.1715414609.1.1.1715414609.60.0.0",
+    "domain": ".cardmarket.com",
+    "path": "/",
+    "expires": 1749974609.341318,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_uetsid",
+    "value": "f3de41800f6c11efaff7613f3561b7c4",
+    "domain": ".cardmarket.com",
+    "path": "/",
+    "expires": 1715501009,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_uetvid",
+    "value": "f3de29a00f6c11ef96d4f91d8dc47c02",
+    "domain": ".cardmarket.com",
+    "path": "/",
+    "expires": 1749110609,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "_fbp",
+    "value": "fb.1.1715414609492.1735144510",
+    "domain": ".cardmarket.com",
+    "path": "/",
+    "expires": 1723190609,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "MUID",
+    "value": "15F76DF16369645A0308798D62E2657C",
+    "domain": ".bing.com",
+    "path": "/",
+    "expires": 1749110609.501626,
+    "httpOnly": false,
+    "secure": true,
+    "sameSite": "None"
+  }
+]
