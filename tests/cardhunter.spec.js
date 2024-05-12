@@ -18,10 +18,7 @@ test('get best prices for cards', async ({page}) => {
         formattedJsonArray.push(shopData);
     }
 
-    const formattedData = await dataFormatter.findShopMostCards(formattedJsonArray);
-
-    const output = JSON.stringify(formattedData, null, 2);
-    console.log(output);
+    dataFormatter.findShopMostCards(formattedJsonArray);
 });
 
 test.skip('run test on cardmarket and set cookies', async ({}) => {
