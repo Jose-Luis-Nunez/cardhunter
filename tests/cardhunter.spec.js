@@ -8,13 +8,13 @@ import fs from "fs";
 test('get best prices for cards', async ({page}) => {
     const cardMarketService = new CardMarketService(page);
 
-    const links = fileManager.getLinksFromFile("./src/data/links.txt")
+    const links = fileManager.readCardLinksFromFile("./src/data/links.txt")
 
     const formattedJsonArray = [];
 
     for (const link of links) {
         await page.goto(link);
-        const shopData = await cardMarketService.getShopNamesFromLink();
+        const shopData = await cardMarketService.getShopData();
         formattedJsonArray.push(shopData);
     }
 
