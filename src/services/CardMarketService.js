@@ -6,18 +6,22 @@ class CardMarketService {
     constructor(page) {
         this.page = page;
         this.webScraper = new WebScraper(page);
-        this.sellerNamesSelector = ".seller-name";
+        this.shopNameSelector = ".seller-name";
         this.sellerPricesSelector = ".price-container";
-        this.cardTitleSelector = ".breadcrumb-item:last-child";
+        this.cardPriceSelector = ".breadcrumb-item:last-child";
     }
 
-    async getShopNamesFromLink() {
-        const sellerInformation = await this.webScraper.getElementTexts(this.sellerNamesSelector, this.page);
-        const sellerPriceInformation = await this.webScraper.getElementTexts(this.sellerPricesSelector, this.page);
-        const cardName = await this.page.locator(this.cardTitleSelector).textContent();
-        const sellerNames = DataProcessor.getSellerNames(sellerInformation);
-        const sellerPriceFormatted = DataProcessor.removeEuroSign(sellerPriceInformation);
-        return DataFormatter.formatCardData(cardName, sellerNames, sellerPriceFormatted);
+    async getShopData() {
+        const shopInformation = await this.webScraper.getElementTexts(this.shopNameSelector, this.page);
+
+        const cardName = await this.page.locator(this.cardPriceSelector).textContent();
+        const shopName = DataProcessor.extractShopName(shopInformation);
+        const shopPriceInformation = await this.webScraper.getElementTexts(this.sellerPricesSelector, this.page);
+
+        return DataFormatter.formatCardData(
+            cardName,
+            shopName,
+            shopPriceInformation);
     }
 }
 
