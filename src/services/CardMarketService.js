@@ -1,6 +1,5 @@
 import WebScraper from "../utils/WebScraper.js";
 import DataProcessor from "../utils/DataProcessor.js";
-import DataFormatter from "../utils/DataFormatter.js";
 
 class CardMarketService {
     constructor(page) {
@@ -18,10 +17,20 @@ class CardMarketService {
         const shopName = DataProcessor.extractShopName(shopInformation);
         const shopPriceInformation = await this.webScraper.getElementTexts(this.sellerPricesSelector, this.page);
 
-        return DataFormatter.formatCardData(
+        return this.formatCardData(
             cardName,
             shopName,
             shopPriceInformation);
+    }
+
+    formatCardData(cardName, shopName, sellerPriceFormatted) {
+        return {
+            cardName,
+            shops: shopName.map((seller, index) => ({
+                sellerName: seller,
+                price: parseFloat(sellerPriceFormatted[index].replace(',', '.'))
+            }))
+        };
     }
 }
 
