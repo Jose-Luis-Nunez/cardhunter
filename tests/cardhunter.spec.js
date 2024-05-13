@@ -5,7 +5,14 @@ import CardMarketService from "../src/services/CardMarketService.js";
 import {chromium} from "playwright";
 import fs from "fs";
 
-test('get best prices for cards', async ({page}) => {
+test('get best prices for cards', async ({}) => {
+    const browser = await chromium.launch({headless: false});
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    const cookies = JSON.parse(fs.readFileSync('./src/data/cookies.json', 'utf8'));
+    await context.addCookies(cookies);
+
     const cardMarketService = new CardMarketService(page);
 
     const links = fileManager.readCardLinksFromFile("./src/data/links.txt")
@@ -31,8 +38,6 @@ test.skip('run test on cardmarket and set cookies', async ({}) => {
     await context.addCookies(cookies);
 
     await page.goto('https://www.cardmarket.com/de/YuGiOh');
-
-    // await new Promise(r => setTimeout(r, 5000));
 
     await browser.close();
 });
