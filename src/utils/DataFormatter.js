@@ -18,17 +18,6 @@ class DataFormatter {
         return shopObj;
     }
 
-
-    static formatCardData(cardName, shopName, sellerPriceFormatted) {
-        return {
-            cardName,
-            shops: shopName.map((seller, index) => ({
-                sellerName: seller,
-                price: parseFloat(sellerPriceFormatted[index].replace(',', '.'))
-            }))
-        };
-    }
-
     static findShopMostCards(cards) {
         const shopObj = this.buildShopObj(cards);
         const allCardNames = new Set(cards.map(card => card.cardName));
