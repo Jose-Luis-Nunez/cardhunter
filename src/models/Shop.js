@@ -1,30 +1,41 @@
 export class Shop {
     constructor(name) {
         this.name = name;
+        this.cards = [];
         this.totalPrice = 0;
-        this.cards = {};
+        this.missingCards = [];
+        this.totalCardNames = new Set();
     }
 
-    addOrUpdateCard(card) {
-        const oldPrice = this.cards[card.name] ? this.cards[card.name].price : 0;
-        this.totalPrice += card.price - oldPrice;
-        this.cards[card.name] = card;
+    addCard(card) {
+        this.cards.push(card);
+        this.updateTotalPrice();
     }
 
-    formatShopSummary(allCardNames) {
-        const longestCardNameLength = Math.max(...Object.keys(this.cards).map(name => name.length));
-        const cardInformation = Object.values(this.cards)
-            .map(card => `| ${card.name.padEnd(longestCardNameLength)} | ${card.price.toFixed(2)}€`)
-            .join('\n');
+    updateTotalPrice() {
+        this.totalPrice = parseFloat(this.cards.reduce((acc, card) => acc + card.price, 0).toFixed(2));
+    }
 
-        const summary = `🛒 Shop: ${this.name} | 💰 Price: ${this.totalPrice.toFixed(2)}€ | ✅ Available: ${Object.keys(this.cards).length}/${allCardNames.size} Cards`;
-        const missingCards = [...allCardNames].filter(cardName => !this.cards.hasOwnProperty(cardName));
-        const missingText = missingCards.length > 0 ? `🚩 Missing Cards (${missingCards.length}):` : '';
+    static setTotalCardNamesForAllShops(shops, totalCardNames) {
+        Object.values(shops).forEach(shop => {
+            shop.setTotalCardNames(totalCardNames);
+        });
+    }
 
-        console.log(`============================\n${summary}\n\n`);
-        console.log("💳 Card Overview:\n--------------------------------");
-        console.log(`${cardInformation}\n--------------------------------\n`);
-        console.log(missingText);
-        console.log(`${missingCards}\n\n`);
+    setTotalCardNames(totalCardNames) {
+        this.totalCardNames = totalCardNames;
+        this.calculateMissingCards();
+    }
+
+    calculateMissingCards() {
+        this.missingCards = [...this.totalCardNames].filter(cardName => !this.cards.some(card => card.name === cardName));
+    }
+
+    getAvailableCards() {
+        return this.cards.length;
+    }
+
+    getTotalCardNamesSize() {
+        return this.totalCardNames.size;
     }
 }
