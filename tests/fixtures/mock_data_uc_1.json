@@ -1,0 +1,32 @@
+[
+  {
+    "cardName": "Pikachu",
+    "shops": [
+      {"sellerName": "Aldi", "price": 1.50},
+      {"sellerName": "Backfee", "price": 1.40},
+      {"sellerName": "Conrad", "price": 1.50},
+      {"sellerName": "Edeka", "price": 1.20}]
+  },
+  {
+    "cardName": "Mewtu",
+    "shops": [
+      {"sellerName": "Aldi", "price": 1.50},
+      {"sellerName": "DM", "price": 1.50},
+      {"sellerName": "Edeka", "price": 0.50}]
+  },
+  {
+    "cardName": "Glurak",
+    "shops": [
+      {"sellerName": "Backfee", "price": 1.60},
+      {"sellerName": "Conrad", "price": 1.50},
+      {"sellerName": "Edeka", "price": 1.70}]
+  },
+  {
+    "cardName": "Fiaro",
+    "shops": [
+      {"sellerName": "Aldi", "price": 1.00},
+      {"sellerName": "Backfee", "price": 0.50},
+      {"sellerName": "Galeria", "price": 4.00},
+      {"sellerName": "Edeka", "price": 0.90}]
+  }
+]
