@@ -3,8 +3,9 @@ import {Card} from "../models/Card.js";
 import {ShopReportService} from "../services/ShopReportService.js";
 
 class DataFormatter {
-    static buildShopObj(cards, uniqueCardNames) {
+    static buildShopObj(cards) {
         const shopObj = {};
+        const uniqueCardNames = new Set(cards.map(card => card.cardName));
 
         cards.forEach(card => {
             card.shops.forEach(shop => {
@@ -17,19 +18,18 @@ class DataFormatter {
             });
         });
 
-        Shop.setTotalCardNamesForAllShops(shopObj, uniqueCardNames);
+        Object.values(shopObj).forEach(shop => shop.setUniqueCardNames(uniqueCardNames));
 
         return shopObj;
     }
 
     static findShopMostCards(cards) {
-        const uniqueCardNames = new Set(cards.map(card => card.cardName));
-        const shopObj = this.buildShopObj(cards,uniqueCardNames);
+        const shopObj = this.buildShopObj(cards);
 
         const sortedShops = Object
             .values(shopObj)
             .sort((a, b) => {
-                const cardCountDiff =b.getAvailableCards() - a.getAvailableCards();
+                const cardCountDiff = b.getAvailableCards() - a.getAvailableCards();
                 if (cardCountDiff !== 0) {
                     return cardCountDiff;
                 }

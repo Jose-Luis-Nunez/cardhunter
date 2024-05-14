@@ -4,31 +4,36 @@ export class Shop {
         this.cards = [];
         this.totalPrice = 0;
         this.missingCards = [];
-        this.totalCardNames = new Set();
+        this.uniqueCardNames = new Set();
     }
 
     addCard(card) {
-        this.cards.push(card);
+        const existingCard = this.cards.find(c => c.name === card.name);
+        if (existingCard) {
+            if (existingCard.price > card.price) {
+                existingCard.price = card.price;
+            }
+        } else {
+            this.cards.push(card);
+        }
         this.updateTotalPrice();
     }
 
     updateTotalPrice() {
-        this.totalPrice = parseFloat(this.cards.reduce((acc, card) => acc + card.price, 0).toFixed(2));
+        this.totalPrice = parseFloat(this.cards
+            .reduce((acc, card) => acc + card.price, 0)
+            .toFixed(2)
+        );
     }
 
-    static setTotalCardNamesForAllShops(shops, totalCardNames) {
-        Object.values(shops).forEach(shop => {
-            shop.setTotalCardNames(totalCardNames);
-        });
-    }
-
-    setTotalCardNames(totalCardNames) {
-        this.totalCardNames = totalCardNames;
+    setUniqueCardNames(uniqueCardNames) {
+        this.uniqueCardNames = uniqueCardNames;
         this.calculateMissingCards();
     }
 
     calculateMissingCards() {
-        this.missingCards = [...this.totalCardNames].filter(cardName => !this.cards.some(card => card.name === cardName));
+        this.missingCards = [...this.uniqueCardNames]
+            .filter(cardName => !this.cards.some(card => card.name === cardName));
     }
 
     getAvailableCards() {
@@ -36,6 +41,6 @@ export class Shop {
     }
 
     getTotalCardNamesSize() {
-        return this.totalCardNames.size;
+        return this.uniqueCardNames.size;
     }
 }

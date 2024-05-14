@@ -18,7 +18,7 @@ export class ShopReportService {
             "--------------------------------",
             availableCards,
             "--------------------------------",
-            "🚩 Missing Cards " + (missingCardsCount) + ":",
+            "🚩 Missing Cards (" + missingCardsCount + "):",
             missingText,
             "",
         ].join('\n');
