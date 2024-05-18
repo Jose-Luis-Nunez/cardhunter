@@ -1,6 +1,8 @@
-export class Card {
+class Card {
     constructor(name, price) {
         this.name = name;
-        this.price =  price;
+        this.price = price;
     }
 }
+
+export default Card;

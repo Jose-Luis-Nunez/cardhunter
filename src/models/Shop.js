@@ -1,4 +1,4 @@
-export class Shop {
+class Shop {
     constructor(name) {
         this.name = name;
         this.cards = [];
@@ -44,3 +44,5 @@ export class Shop {
         return this.uniqueCardNames.size;
     }
 }
+
+export default Shop;

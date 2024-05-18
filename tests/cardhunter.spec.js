@@ -1,5 +1,4 @@
 import {test} from '@playwright/test';
-import dataFormatter from "../src/utils/DataFormatter.js";
 import fileManager from "../src/utils/FileManager.js";
 import CardMarketService from "../src/services/CardMarketService.js";
 import {chromium} from "playwright";
@@ -25,7 +24,7 @@ test('get best prices for cards', async ({}) => {
         formattedJsonArray.push(shopData);
     }
 
-    dataFormatter.findShopMostCards(formattedJsonArray);
+    // dataFormatter.findShopMostCards(formattedJsonArray);
 });
 
 test.skip('run test on cardmarket and set cookies', async ({}) => {
