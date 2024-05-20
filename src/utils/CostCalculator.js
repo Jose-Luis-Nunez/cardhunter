@@ -1,22 +1,29 @@
+import Card from '../models/Card.js';
+import Shop from '../models/Shop.js';
+
 class CostCalculator {
     static calculateCosts(combinations) {
-        return combinations.map(combo => {
-            const shopsUsed = {};
-            let detail = {};  // To store the details of what is bought from which shop
+        return combinations.map(combination => {
+            const shopMap = new Map();
             let totalProductCost = 0;
 
-            combo.forEach(item => {
-                if (!shopsUsed[item.sellerName]) {
-                    shopsUsed[item.sellerName] = 3; // initial shipping cost
-                    detail[item.sellerName] = []; // initialize shop detail list
+            combination.forEach(item => {
+                let shop = shopMap.get(item.sellerName);
+                if (!shop) {
+                    shop = new Shop(item.sellerName);
+                    shopMap.set(item.sellerName, shop);
                 }
-                shopsUsed[item.sellerName] += item.price;
-                totalProductCost += item.price;
-                detail[item.sellerName].push(`${item.cardName}: €${item.price.toFixed(2)}`);
+                const card = new Card(item.cardName, item.price);
+                shop.addCard(card);
+                totalProductCost += card.price;
             });
 
-            const totalCostWithDelivery = Object.values(shopsUsed).reduce((sum, current) => sum + current, 0);
-            return {totalCostWithDelivery, totalProductCost, detail};
+            const totalCostWithDelivery = totalProductCost + (shopMap.size * 3);
+            return {
+                totalCostWithDelivery,
+                totalProductCost,
+                detail: Array.from(shopMap.values())
+            };
         });
     }
 }
