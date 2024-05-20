@@ -5,7 +5,7 @@ class CostCalculationService {
         return CostCalculator.calculateCosts(combinations);
     }
 
-    static getTopFourCostEffectiveOptions(costs,numberOfOptions) {
+    static getTopFourCostEffectiveOptions(costs, numberOfOptions = 4) {
         costs.sort((a, b) => a.totalCostWithDelivery - b.totalCostWithDelivery);
         return costs.slice(0, numberOfOptions);
     }

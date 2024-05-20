@@ -1,20 +1,31 @@
 import CardDataService from "../src/services/cardsrecommendation/CardDataService.js";
 import ShopPurchaseOptionsService from "../src/services/cardsrecommendation/ShopPurchaseOptionsService.js";
-import ShopOutputService from "../src/services/cardsrecommendation/ShopOutputService.js";
 import CostCalculationService from "../src/services/cardsrecommendation/CostCalculatorService.js";
+import ShopOutputService from "../src/services/cardsrecommendation/ShopOutputService.js";
 
+// Hauptfunktion zum Ausführen des Offline-Kaufs
 async function offlineHunt() {
-    const cardData = CardDataService.readCardDataFromFile("./tests/fixtures/mock_data_ec_1.json");
+    try {
+        // JSON-Daten aus der Datei lesen
+        const cardData = CardDataService.readCardDataFromFile("./tests/fixtures/mock_data_ec_0.json");
 
-    const productOptions = ShopPurchaseOptionsService.generateProductOptions(cardData);
+        // Daten in ein Format umwandeln, das für die Kombinationserzeugung geeignet ist
+        const productOptions = ShopPurchaseOptionsService.generateProductOptions(cardData);
 
-    const combinations = ShopPurchaseOptionsService.generateAllShopPurchaseOptions(...productOptions);
+        // Optimale Kombinationen der Shops mit dynamischer Programmierung ermitteln
+        const optimalCombinations = ShopPurchaseOptionsService.generateOptimalShopCombinations(productOptions);
 
-    const costs = CostCalculationService.calculateCosts(combinations);
+        // Gesamtkosten für jede Kombination berechnen, einschließlich fester Versandkosten
+        const costs = CostCalculationService.calculateCosts(optimalCombinations);
 
-    const bestCombinations = CostCalculationService.getTopFourCostEffectiveOptions(costs,4);
+        // Nach Gesamtkosten sortieren und die vier günstigsten Optionen auswählen
+        const topFour = CostCalculationService.getTopFourCostEffectiveOptions(costs);
 
-    ShopOutputService.printTopCombinations(bestCombinations);
+        // Ergebnisse mit dem ShopOutputService ausgeben
+        ShopOutputService.printTopCombinations(topFour);
+    } catch (error) {
+        console.error("Error during offline hunt:", error);
+    }
 }
 
 offlineHunt();
