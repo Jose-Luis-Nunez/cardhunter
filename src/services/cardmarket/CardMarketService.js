@@ -1,5 +1,5 @@
-import WebScraper from "../utils/WebScraper.js";
-import DataProcessor from "../utils/DataProcessor.js";
+import WebScraper from "../../utils/WebScraper.js";
+import DataProcessor from "../../utils/DataProcessor.js";
 
 class CardMarketService {
     constructor(page) {
@@ -16,12 +16,6 @@ class CardMarketService {
         const cardName = await this.page.locator(this.cardPriceSelector).textContent();
         const shopName = DataProcessor.extractShopName(shopInformation);
         const shopPriceInformation = await this.webScraper.getElementTexts(this.sellerPricesSelector, this.page);
-        console.log("****** in der funktion getShopdata******")
-        console.log(this.formatCardData(
-            cardName,
-            shopName,
-            shopPriceInformation))
-        console.log("************")
         return this.formatCardData(
             cardName,
             shopName,

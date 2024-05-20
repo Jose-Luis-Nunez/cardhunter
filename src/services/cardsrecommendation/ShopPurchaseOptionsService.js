@@ -1,5 +1,3 @@
-import ShopPurchaseOptionsGenerator from "../utils/ShopPurchaseOptionsGenerator.js";
-
 class ShopPurchaseOptionsService {
     static generateProductOptions(cardData) {
         return cardData.map(product => {
@@ -11,8 +9,8 @@ class ShopPurchaseOptionsService {
         });
     }
 
-    static generateAllShopPurchaseOptions(productOptions) {
-        return ShopPurchaseOptionsGenerator.generateAllShopPurchaseOptions(...productOptions);
+    static generateAllShopPurchaseOptions(...args) {
+        return args.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
     }
 }
 
