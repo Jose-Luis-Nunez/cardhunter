@@ -1,39 +1,20 @@
-import fs from "fs";
-import ShopPurchaseOptionsGenerator from "../src/utils/ShopPurchaseOptionsGenerator.js";
-import CostCalculator from "../src/utils/CostCalculator.js";
+import CardDataService from "../src/services/CardDataService.js";
+import ShopPurchaseOptionsService from "../src/services/ShopPurchaseOptionsService.js";
 import ShopOutputService from "../src/services/ShopOutputService.js";
-
+import CostCalculationService from "../src/services/CostCalculatorService.js";
 
 async function offlineHunt() {
-    try {
+    const cardData = CardDataService.readCardDataFromFile("./tests/fixtures/mock_data_ec_1.json");
 
-        const cardData = JSON.parse(fs.readFileSync("./tests/fixtures/mock_data_ec_1.json", "utf8"));
+    const productOptions = ShopPurchaseOptionsService.generateProductOptions(cardData);
 
+    const combinations = ShopPurchaseOptionsService.generateAllShopPurchaseOptions(productOptions);
 
-        // Map data to a format suitable for generating combinations
-        const productOptions = cardData.map(product => {
-            return product.shops.map(shop => ({
-                cardName: product.cardName,
-                sellerName: shop.sellerName,
-                price: shop.price
-            }));
-        });
+    const costs = CostCalculationService.calculateCosts(combinations);
 
-        // Generate all combinations of shops
-        const combinations = ShopPurchaseOptionsGenerator.generateAllShopPurchaseOptions(...productOptions);
+    const bestCombinations = CostCalculationService.getTopFourCostEffectiveOptions(costs,4);
 
-        // Calculate the total cost for each combination, including fixed shipping costs
-        const costs = CostCalculator.calculateCosts(combinations);
-
-        // Sort by total cost and get the four cheapest options
-        costs.sort((a, b) => a.totalCostWithDelivery - b.totalCostWithDelivery);
-        const topFour = costs.slice(0, 4);
-
-        // Use the ShopOutputService to print the results
-        ShopOutputService.printTopCombinations(topFour);
-    } catch (error) {
-        console.error("Failed to read or process file:", error);
-    }
+    ShopOutputService.printTopCombinations(bestCombinations);
 }
 
 offlineHunt();

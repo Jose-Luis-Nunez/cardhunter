@@ -1,4 +1,3 @@
-
 class ShopOutputService {
     static printTopCombinations(topFour) {
         topFour.forEach((option, index) => {
