@@ -1,5 +1,5 @@
-import WebScraper from "../../utils/WebScraper.js";
-import DataProcessor from "../../utils/DataProcessor.js";
+import WebScraper from "../../utils/cardmarket/WebScraper.js";
+import DataProcessor from "../../utils/cardmarket/DataProcessor.js";
 
 class CardMarketService {
     constructor(page) {

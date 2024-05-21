@@ -1,5 +1,5 @@
 import {test} from '@playwright/test';
-import fileManager from "../src/utils/FileManager.js";
+import fileManager from "../src/utils/cardmarket/FileManager.js";
 import CardMarketService from "../src/services/cardmarket/CardMarketService.js";
 import {chromium} from "playwright";
 import fs from "fs";

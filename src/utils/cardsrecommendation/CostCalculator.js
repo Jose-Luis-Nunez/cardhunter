@@ -1,5 +1,5 @@
-import Card from '../models/Card.js';
-import Shop from '../models/Shop.js';
+import Card from '../../models/Card.js';
+import Shop from '../../models/Shop.js';
 
 class CostCalculator {
     static calculateCosts(combinations) {

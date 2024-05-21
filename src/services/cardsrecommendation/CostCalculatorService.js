@@ -1,4 +1,4 @@
-import CostCalculator from "../../utils/CostCalculator.js";
+import CostCalculator from "../../utils/cardsrecommendation/CostCalculator.js";
 
 class CostCalculationService {
     static calculateCosts(combinations) {
