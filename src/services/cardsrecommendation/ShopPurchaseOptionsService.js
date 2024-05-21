@@ -1,4 +1,4 @@
-import ShopPurchaseOption from "../../utils/ShopPurchaseOption.js";
+import ShopPurchaseOption from "../../utils/cardsrecommendation/ShopPurchaseOption.js";
 
 class ShopPurchaseOptionsService {
     static generateProductOptions(cardData) {
