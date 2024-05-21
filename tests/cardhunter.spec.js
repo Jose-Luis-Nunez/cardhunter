@@ -35,7 +35,7 @@ test('get best prices for cards', async ({}) => {
     console.log("3")
     const costs = CostCalculationService.calculateCosts(combinations);
     console.log("4")
-    const bestCombinations = CostCalculationService.getTopFourCostEffectiveOptions(costs,4);
+    // const bestCombinations = CostCalculationService.getTopFourCostEffectiveOptions(costs,4);
     console.log("5")
     ShopOutputService.printTopCombinations(bestCombinations);
 });
