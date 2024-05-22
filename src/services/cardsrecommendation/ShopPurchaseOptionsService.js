@@ -1,4 +1,4 @@
-import ShopPurchaseOption from "../../utils/cardsrecommendation/ShopPurchaseOption.js";
+const ShopPurchaseOption = require("../../utils/cardsrecommendation/ShopPurchaseOption.js");
 
 class ShopPurchaseOptionsService {
     static generateProductOptions(cardData) {
@@ -10,4 +10,4 @@ class ShopPurchaseOptionsService {
     }
 }
 
-export default ShopPurchaseOptionsService;
+module.exports = ShopPurchaseOptionsService;

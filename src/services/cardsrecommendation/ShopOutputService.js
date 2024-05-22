@@ -18,4 +18,4 @@ class ShopOutputService {
     }
 }
 
-export default ShopOutputService;
+module.exports = ShopOutputService;

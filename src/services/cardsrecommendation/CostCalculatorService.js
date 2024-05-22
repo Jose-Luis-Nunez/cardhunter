@@ -1,4 +1,4 @@
-import CostCalculator from "../../utils/cardsrecommendation/CostCalculator.js";
+const CostCalculator = require("../../utils/cardsrecommendation/CostCalculator.js");
 
 class CostCalculationService {
     static calculateCosts(combinations) {
@@ -6,4 +6,4 @@ class CostCalculationService {
     }
 }
 
-export default CostCalculationService;
+module.exports = CostCalculator;

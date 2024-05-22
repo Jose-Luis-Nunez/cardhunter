@@ -21,4 +21,4 @@ class Shop {
     }
 }
 
-export default Shop;
+module.exports = Shop;

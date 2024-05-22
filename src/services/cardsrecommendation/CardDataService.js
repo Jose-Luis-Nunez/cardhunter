@@ -1,4 +1,4 @@
-import fs from "fs";
+const fs = require("fs");
 
 class CardDataService {
     static readCardDataFromFile(filePath) {
@@ -12,4 +12,4 @@ class CardDataService {
     }
 }
 
-export default CardDataService;
+module.exports = CardDataService;

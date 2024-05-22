@@ -45,5 +45,4 @@ class ShopPurchaseOption {
         return bestCombinations;
     }
 }
-
-export default ShopPurchaseOption;
+module.exports = ShopPurchaseOption;

@@ -1,5 +1,5 @@
-import Card from '../../models/Card.js';
-import Shop from '../../models/Shop.js';
+const Card = require('../../models/Card');
+const Shop = require('../../models/Shop');
 
 class CostCalculator {
     static calculateCosts(combinations) {
@@ -27,5 +27,4 @@ class CostCalculator {
         });
     }
 }
-
-export default CostCalculator;
+module.exports = CostCalculator;
