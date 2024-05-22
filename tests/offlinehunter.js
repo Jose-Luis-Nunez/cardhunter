@@ -5,7 +5,7 @@ const ShopOutputService = require("../src/services/cardsrecommendation/ShopOutpu
 
 async function offlineHunt() {
     try {
-        const cardData = CardDataService.readCardDataFromFile("./tests/fixtures/mock_data_c_2_y.json");
+        const cardData = CardDataService.readCardDataFromFile("./tests/fixtures/mock_data_c_3p.json");
         const productOptions = ShopPurchaseOptionsService.generateProductOptions(cardData);
         const optimalCombinations = ShopPurchaseOptionsService.findOptimalCombinations(productOptions, 4); // Get top 4 combinations
         const costs = CostCalculationService.calculateCosts(optimalCombinations);
