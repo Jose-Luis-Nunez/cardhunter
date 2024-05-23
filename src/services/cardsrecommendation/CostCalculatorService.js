@@ -6,4 +6,4 @@ class CostCalculationService {
     }
 }
 
-module.exports = CostCalculator;
+module.exports = CostCalculationService;
