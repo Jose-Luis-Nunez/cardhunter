@@ -1,20 +1,21 @@
 class ShopOutputService {
-    static printTopCombinations(topFour) {
-        topFour.forEach((option, index) => {
-            console.log('╔══════════════════════════════════╗');
-            console.log(`║ Combination: ${index + 1}                   ║`);
-            console.log('╚══════════════════════════════════╝');
-            console.log(`💰 Total card cost: €${option.totalProductCost.toFixed(2)} with delivery: ${option.totalCostWithDelivery.toFixed(2)}`);
-            console.log();
+    static printTopCombinations(results) {
+        let output = '';
+        results.forEach((result, index) => {
+            output += '╔══════════════════════════════════╗\n';
+            output += `║ Combination: ${index + 1}                   ║\n`;
+            output += '╚══════════════════════════════════╝\n';
+            output += `💰 Total card cost: €${result.totalProductCost.toFixed(2)} with delivery: €${result.totalCostWithDelivery.toFixed(2)}\n\n`;
 
-            option.detail.forEach(shop => {
-                console.log(`🛒 ${shop.name} (${shop.getAvailableCards()} items):`);
+            result.detail.forEach(shop => {
+                output += `🛒 ${shop.name} (${shop.cards.length} items):\n`;
                 shop.cards.forEach(card => {
-                    console.log(`  ➤ ${card.name}: €${card.price.toFixed(2)}`);
+                    output += `  ➤ ${card.name}: €${card.price.toFixed(2)}\n`;
                 });
-                console.log();
+                output += '\n';
             });
         });
+        return output;
     }
 }
 

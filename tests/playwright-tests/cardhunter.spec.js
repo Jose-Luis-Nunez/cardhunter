@@ -1,11 +1,11 @@
 import {test} from '@playwright/test';
-import fileManager from "../src/utils/cardmarket/FileManager.js";
-import CardMarketService from "../src/services/cardmarket/CardMarketService.js";
+import fileManager from "../../src/utils/cardmarket/FileManager.js";
+import CardMarketService from "../../src/services/cardmarket/CardMarketService.js";
 import {chromium} from "playwright";
 import fs from "fs";
-import ShopPurchaseOptionsService from "../src/services/cardsrecommendation/ShopPurchaseOptionsService";
-import CostCalculationService from "../src/services/cardsrecommendation/CostCalculatorService";
-import ShopOutputService from "../src/services/cardsrecommendation/ShopOutputService";
+import ShopPurchaseOptionsService from "../../src/services/cardsrecommendation/ShopPurchaseOptionsService";
+import CostCalculationService from "../../src/services/cardsrecommendation/CostCalculatorService";
+import ShopOutputService from "../../src/services/cardsrecommendation/ShopOutputService";
 
 test('get best prices for cards', async ({}) => {
     const browser = await chromium.launch({headless: false});
