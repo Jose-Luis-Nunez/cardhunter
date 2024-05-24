@@ -5,7 +5,7 @@ const {
     more_expensive_to_reduce_cost,
     bestCombinationSameShop,
     secondBestCombinationSameShop
-} = require("../utils/expectedResults/expectedResults_c_2y.js");
+} = require("../utils/expectedResults/expectedResults_c3p.js");
 
 describe('test to buy 3 cards to find best 4 combinations', () => {
 
