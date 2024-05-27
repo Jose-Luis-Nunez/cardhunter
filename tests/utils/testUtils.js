@@ -1,19 +1,3 @@
-function dedent(strings, ...values) {
-    const raw = typeof strings === "string" ? [strings] : strings.raw;
-    let result = "";
-    for (let i = 0; i < raw.length; i++) {
-        result += raw[i].replace(/\\n/g, "\n");
-        if (i < values.length) {
-            result += values[i];
-        }
-    }
-
-    const lines = result.split("\n");
-    const minIndent = lines.filter(line => line.trim().length > 0)
-        .reduce((min, line) => Math.min(min, line.match(/^ */)[0].length), Infinity);
-    return lines.map(line => line.slice(minIndent)).join("\n").trim();
-}
-
 function convertToJson(output) {
     const combinations = output.split('╔══════════════════════════════════╗')
         .filter(part => part.trim())
@@ -61,6 +45,5 @@ function convertToJson(output) {
 }
 
 module.exports = {
-    dedent,
     convertToJson,
 };
