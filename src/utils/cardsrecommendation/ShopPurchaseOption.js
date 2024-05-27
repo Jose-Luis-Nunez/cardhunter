@@ -10,39 +10,40 @@ class ShopPurchaseOption {
     }
 
     static findOptimalCombinations(productOptions, topN = 4) {
-        let bestCombinations = [];
-        let bestCosts = [];
+        let allCombinations = [];
 
-        function backtrack(index, currentCombination, currentCost, shopCounts) {
-            if (index === productOptions.length) {
-                const totalCostWithDelivery = currentCost + (shopCounts.size * 3);
-                if (bestCombinations.length < topN || totalCostWithDelivery < bestCosts[bestCosts.length - 1]) {
-                    bestCombinations.push([...currentCombination]);
-                    bestCosts.push(totalCostWithDelivery);
+        function calculateCombinationCost(combination) {
+            const shopCounts = new Map();
+            let totalCost = 0;
 
-                    const sortedIndices = bestCosts.map((cost, i) => i).sort((a, b) => bestCosts[a] - bestCosts[b]);
-                    bestCombinations = sortedIndices.map(i => bestCombinations[i]);
-                    bestCosts = sortedIndices.map(i => bestCosts[i]);
+            combination.forEach(item => {
+                totalCost += item.price;
+                shopCounts.set(item.sellerName, (shopCounts.get(item.sellerName) || 0) + 1);
+            });
 
-                    if (bestCombinations.length > topN) {
-                        bestCombinations.pop();
-                        bestCosts.pop();
-                    }
-                }
+            const deliveryCost = shopCounts.size * 3;
+            return totalCost + deliveryCost;
+        }
+
+        function combine(currentCombination, options, index) {
+            if (index === options.length) {
+                const totalCost = calculateCombinationCost(currentCombination);
+                allCombinations.push({ combination: [...currentCombination], totalCost });
                 return;
             }
 
-            for (const option of productOptions[index]) {
+            for (let option of options[index]) {
                 currentCombination.push(option);
-                const newShopCounts = new Map(shopCounts);
-                newShopCounts.set(option.sellerName, (newShopCounts.get(option.sellerName) || 0) + 1);
-                backtrack(index + 1, currentCombination, currentCost + option.price, newShopCounts);
+                combine(currentCombination, options, index + 1);
                 currentCombination.pop();
             }
         }
 
-        backtrack(0, [], 0, new Map());
-        return bestCombinations;
+        combine([], productOptions, 0);
+        allCombinations.sort((a, b) => a.totalCost - b.totalCost);
+
+        return allCombinations.slice(0, topN).map(comb => comb.combination);
     }
 }
+
 module.exports = ShopPurchaseOption;

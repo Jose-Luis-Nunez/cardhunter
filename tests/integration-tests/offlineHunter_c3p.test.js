@@ -1,11 +1,11 @@
-const offlineHunter = require("/Users/josenunez/Documents/repo/cardhunter/src/offlinehunter.js");
+const offlineHunter = require("/Users/josenunez/Documents/repo/cardhunter/src/offlineHunter.js");
 const {convertToJson} = require("../utils/testUtils");
 const {
     complete,
     moreExpensiveItemToReduceTotalCost,
     bestCombinationSameShop,
     secondBestCombinationSameShop
-} = require("../utils/expectedResults/expectedResults_c3p.js");
+} = require("../fixtures/expectedResults/expectedResults_c3p.js");
 
 describe('test purchase 3 Item Combination considering price and delivery fee', () => {
     const filePath = "./tests/fixtures/mock_data_c3p.json";

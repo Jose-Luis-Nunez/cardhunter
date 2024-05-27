@@ -1,5 +1,5 @@
-const offlineHunter = require("/Users/josenunez/Documents/repo/cardhunter/src/offlinehunter.js");
-const {complete} = require("../utils/expectedResults/expectedResults_c4p.js");
+const offlineHunter = require("/Users/josenunez/Documents/repo/cardhunter/src/offlineHunter.js");
+const {complete} = require("../fixtures/expectedResults/expectedResults_c4p.js");
 
 describe('test purchase 4 Item Combination considering price and delivery fee', () => {
     const filePath = "./tests/fixtures/mock_data_c4p.json";

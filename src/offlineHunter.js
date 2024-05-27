@@ -3,7 +3,7 @@ const ShopPurchaseOptionsService  = require("./services/cardsrecommendation/Shop
 const CostCalculationService  = require("./services/cardsrecommendation/CostCalculatorService.js");
 const ShopOutputService = require("./services/cardsrecommendation/ShopOutputService.js");
 
-async function offlineHunt(filePath) {
+async function offlineHunter(filePath) {
     try {
         const cardData = CardDataService.readCardDataFromFile(filePath);
         const productOptions = ShopPurchaseOptionsService.generateProductOptions(cardData);
@@ -15,4 +15,4 @@ async function offlineHunt(filePath) {
     }
 }
 
-module.exports = offlineHunt;
+module.exports = offlineHunter;
