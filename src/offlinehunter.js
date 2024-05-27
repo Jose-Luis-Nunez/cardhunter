@@ -15,5 +15,4 @@ async function offlineHunt(filePath) {
     }
 }
 
-// console.log(offlineHunt("./tests/fixtures/mock_data_c_3p.json"));
 module.exports = offlineHunt;

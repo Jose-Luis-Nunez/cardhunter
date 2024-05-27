@@ -2,33 +2,27 @@ const offlineHunter = require("/Users/josenunez/Documents/repo/cardhunter/src/of
 const {convertToJson} = require("../utils/testUtils");
 const {
     complete,
-    more_expensive_to_reduce_cost,
+    moreExpensiveItemToReduceTotalCost,
     bestCombinationSameShop,
     secondBestCombinationSameShop
 } = require("../utils/expectedResults/expectedResults_c3p.js");
 
-describe('test to buy 3 cards to find best 4 combinations', () => {
+describe('test purchase 3 Item Combination considering price and delivery fee', () => {
+    const filePath = "./tests/fixtures/mock_data_c3p.json";
 
     it('should process complete file for buying 3 cards and return the expected output', async () => {
-        const filePath = "./tests/fixtures/mock_data_c_3p.json";
-
         const output = await offlineHunter(filePath);
 
         expect(output.trim()).toBe(complete);
-
     });
 
     it('should consider buying a more expensive card to reduce total costs', async () => {
-        const filePath = "./tests/fixtures/mock_data_c_3p.json";
-
         const output = await offlineHunter(filePath);
 
-        expect(output.trim()).toContain(more_expensive_to_reduce_cost);
+        expect(output.trim()).toContain(moreExpensiveItemToReduceTotalCost);
     });
 
     it('should show multiple combinations considering the same shops', async () => {
-        const filePath = "./tests/fixtures/mock_data_c_3p.json";
-
         const output = await offlineHunter(filePath);
         const outputTrimmed = output.trim();
 
@@ -37,7 +31,6 @@ describe('test to buy 3 cards to find best 4 combinations', () => {
     });
 
     it('should verify 4 number of combinations ordered by price ASC', async () => {
-        const filePath = "./tests/fixtures/mock_data_c_3p.json";
         const output = await offlineHunter(filePath);
         const recommendationObj = convertToJson(output);
 
