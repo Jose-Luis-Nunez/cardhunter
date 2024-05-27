@@ -13,7 +13,7 @@ const complete = `
 ╚══════════════════════════════════╝
 💰 Total card cost: €0.12 with delivery: €6.12
 
-🛒 anke1966 (1 items):
+🛒 Mr-2-nice-4-you (1 items):
   ➤ Tarneinsiedler: €0.02
 
 🛒 Revokalypse (1 items):
@@ -24,7 +24,7 @@ const complete = `
 ╚══════════════════════════════════╝
 💰 Total card cost: €0.12 with delivery: €6.12
 
-🛒 anke1966 (1 items):
+🛒 Mr-2-nice-4-you (1 items):
   ➤ Tarneinsiedler: €0.02
 
 🛒 Yubel44 (1 items):
@@ -35,7 +35,7 @@ const complete = `
 ╚══════════════════════════════════╝
 💰 Total card cost: €0.12 with delivery: €6.12
 
-🛒 anke1966 (1 items):
+🛒 Mr-2-nice-4-you (1 items):
   ➤ Tarneinsiedler: €0.02
 
 🛒 bananamixa (1 items):

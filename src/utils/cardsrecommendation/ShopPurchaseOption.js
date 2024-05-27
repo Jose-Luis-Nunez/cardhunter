@@ -1,3 +1,5 @@
+const PriorityQueue = require('js-priority-queue');
+
 class ShopPurchaseOption {
     static generateProductOptions(cardData) {
         return cardData.map(product => {
@@ -9,10 +11,11 @@ class ShopPurchaseOption {
         });
     }
 
-    static findOptimalCombinations(productOptions, topN = 4) {
-        let allCombinations = [];
+    static findOptimalCombinations(productOptions, topN = 3) {
+        let bestCombinations = [];
+        let bestCost = Infinity;
 
-        function calculateCombinationCost(combination) {
+        function calculateCost(combination) {
             const shopCounts = new Map();
             let totalCost = 0;
 
@@ -25,24 +28,47 @@ class ShopPurchaseOption {
             return totalCost + deliveryCost;
         }
 
-        function combine(currentCombination, options, index) {
-            if (index === options.length) {
-                const totalCost = calculateCombinationCost(currentCombination);
-                allCombinations.push({ combination: [...currentCombination], totalCost });
-                return;
-            }
+        const pq = new PriorityQueue({ comparator: (a, b) => a.totalCost - b.totalCost });
 
-            for (let option of options[index]) {
-                currentCombination.push(option);
-                combine(currentCombination, options, index + 1);
-                currentCombination.pop();
+        function initializePriorityQueue() {
+            const initialCombination = [];
+            const initialCost = 0;
+            const initialIndex = 0;
+            pq.queue({ combination: initialCombination, totalCost: initialCost, index: initialIndex });
+        }
+
+        function generateCombinations() {
+            while (pq.length > 0) {
+                const { combination, totalCost, index } = pq.dequeue();
+
+                if (index === productOptions.length) {
+                    if (bestCombinations.length < topN || totalCost < bestCost) {
+                        bestCombinations.push({ combination, totalCost });
+                        bestCombinations.sort((a, b) => a.totalCost - b.totalCost);
+                        if (bestCombinations.length > topN) {
+                            bestCombinations.pop();
+                        }
+                        bestCost = bestCombinations[bestCombinations.length - 1].totalCost;
+                    }
+                    continue;
+                }
+
+                productOptions[index].forEach(option => {
+                    const newCombination = combination.concat(option);
+                    const newCost = calculateCost(newCombination);
+                    pq.queue({ combination: newCombination, totalCost: newCost, index: index + 1 });
+                });
+
+                if (bestCombinations.length >= topN && pq.peek().totalCost >= bestCost) {
+                    break;
+                }
             }
         }
 
-        combine([], productOptions, 0);
-        allCombinations.sort((a, b) => a.totalCost - b.totalCost);
+        initializePriorityQueue();
+        generateCombinations();
 
-        return allCombinations.slice(0, topN).map(comb => comb.combination);
+        return bestCombinations.map(item => item.combination);
     }
 }
 
