@@ -7,7 +7,7 @@ async function offlineHunt(filePath) {
     try {
         const cardData = CardDataService.readCardDataFromFile(filePath);
         const productOptions = ShopPurchaseOptionsService.generateProductOptions(cardData);
-        const optimalCombinations = ShopPurchaseOptionsService.findOptimalCombinations(productOptions, 4); // Get top 4 combinations
+        const optimalCombinations = ShopPurchaseOptionsService.findOptimalCombinations(productOptions, 4);
         const costs = CostCalculationService.calculateCosts(optimalCombinations);
         return ShopOutputService.printTopCombinations(costs);
     } catch (error) {
