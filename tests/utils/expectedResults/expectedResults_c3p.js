@@ -48,7 +48,7 @@ const complete = `
   ➤ Super Angel: €0.06
 `.trim();
 
-const more_expensive_to_reduce_cost = `
+const moreExpensiveItemToReduceTotalCost = `
 ╔══════════════════════════════════╗
 ║ Combination: 4                   ║
 ╚══════════════════════════════════╝
@@ -92,7 +92,7 @@ const secondBestCombinationSameShop = `
 
 module.exports = {
     complete,
-    more_expensive_to_reduce_cost,
+    moreExpensiveItemToReduceTotalCost,
     bestCombinationSameShop,
     secondBestCombinationSameShop,
 };
