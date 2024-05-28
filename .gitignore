@@ -2,7 +2,7 @@ node_modules/
 /test-results/
 /playwright-report/
 /playwright/.cache/
-
+/coverage
 # dependencies
 node_modules
 **/node_modules
@@ -24,3 +24,4 @@ node_modules
 *.tgz
 *.tar
 *.html
+*.css

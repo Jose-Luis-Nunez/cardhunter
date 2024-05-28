@@ -1,0 +1,27 @@
+[
+  {
+    "cardName": "Glurak VMAX",
+    "shops": [
+      {"sellerName": "Edeka", "price": 9.00},
+      {"sellerName": "Netto", "price": 10.00}]
+  },
+  {
+    "cardName": "Nestball",
+    "shops": [
+      {"sellerName": "Aldi", "price": 0.05},
+      {"sellerName": "Rossmann", "price": 0.07}]
+  },
+  {
+    "cardName": "Super Angel",
+    "shops": [
+      {"sellerName": "Edeka", "price": 0.05},
+      {"sellerName": "Aldi", "price": 0.06}
+    ]
+  },
+  {
+    "cardName": "Pikachu",
+    "shops": [
+      {"sellerName": "Aldi", "price": 0.05}
+    ]
+  }
+]
