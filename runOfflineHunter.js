@@ -1,6 +1,6 @@
 const offlineHunter = require('./src/offlineHunter.js'); // Verwende den relativen Pfad
 
-const filePath = "./tests/fixtures/mock_data_c_7p.json";
+const filePath = "./tests/fixtures/mock_data_c7p.json";
 
 async function runOfflineHunter(topN) {
     try {
