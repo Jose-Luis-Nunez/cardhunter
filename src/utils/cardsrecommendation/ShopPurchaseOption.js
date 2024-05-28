@@ -38,8 +38,14 @@ class ShopPurchaseOption {
         }
 
         function generateCombinations() {
-            while (pq.length > 0) {
+            const visited = new Set();
+
+            while (pq.length > 0 && bestCombinations.length < topN) {
                 const { combination, totalCost, index } = pq.dequeue();
+
+                const key = combination.map(item => item.cardName + item.sellerName).join('|');
+                if (visited.has(key)) continue;
+                visited.add(key);
 
                 if (index === productOptions.length) {
                     if (bestCombinations.length < topN || totalCost < bestCost) {
@@ -53,11 +59,13 @@ class ShopPurchaseOption {
                     continue;
                 }
 
-                productOptions[index].forEach(option => {
+                for (let option of productOptions[index]) {
                     const newCombination = combination.concat(option);
                     const newCost = calculateCost(newCombination);
-                    pq.queue({ combination: newCombination, totalCost: newCost, index: index + 1 });
-                });
+                    if (newCost < bestCost || bestCombinations.length < topN) {
+                        pq.queue({ combination: newCombination, totalCost: newCost, index: index + 1 });
+                    }
+                }
 
                 if (bestCombinations.length >= topN && pq.peek().totalCost >= bestCost) {
                     break;
