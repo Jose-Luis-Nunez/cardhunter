@@ -1,4 +1,4 @@
-const offlineHunter = require("/Users/josenunez/Documents/repo/cardhunter/src/offlineHunter.js");
+const offlineHunter = require("../../src/offlineHunter.js");
 const complete = require("../fixtures/expectedResults/expectedResults_c2y.js");
 
 describe('test purchase 2 Item Combination considering price and delivery fee', () => {

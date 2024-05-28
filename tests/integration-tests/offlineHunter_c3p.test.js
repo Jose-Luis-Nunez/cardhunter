@@ -1,4 +1,4 @@
-const offlineHunter = require("/Users/josenunez/Documents/repo/cardhunter/src/offlineHunter.js");
+const offlineHunter = require("../../src/offlineHunter.js");
 const {convertToJson} = require("../utils/testUtils");
 const {
     complete,
